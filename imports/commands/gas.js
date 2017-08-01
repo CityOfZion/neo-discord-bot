@@ -8,6 +8,6 @@ module.exports = (client, message) => {
     },
     function (e, r, prices) {
       const price = prices[0];
-      message.author.send(`The current GAS price is ${currency.format(price.price_usd, { code: 'USD' })}, B${price.price_btc} and rank ${price.rank}`);
+      message.channel.send(`The current GAS price is ${currency.format(price.price_usd, { code: 'USD' })}, B${price.price_btc} and rank ${price.rank}`);
     });
 };

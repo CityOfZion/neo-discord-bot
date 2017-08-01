@@ -3,7 +3,8 @@ const sentiment = require('sentiment');
 const fs = require('fs');
 
 module.exports = class Bot {
-  constructor(db, client) {
+  constructor(db, client, botApiKey) {
+    this.botApiKey = botApiKey;
     this.classifier = new NLP.LogisticRegressionClassifier();
     this.db = db;
     this.client = client;
@@ -17,23 +18,33 @@ module.exports = class Bot {
   init() {
     this.client.on('message', (message) => {
       const regex = /^(how|when|is|which|what|whose|who|whom|where|why|can)(.*)|([^.!?]+\?)/igm;
-  
+      
       const isQuestion = regex.test(message.content);
       const isCommand = message.content.charAt(0) === '!';
       if (isQuestion) {
         const interpretation = this.interpret(message.content);
-  
+        
         if (interpretation.guess) {
-          console.log('invoking skill', interpretation.guess);
-          this.invoke(interpretation.guess, message);
+          const [command] = message.content.substr(1).toLocaleLowerCase().split(' ');
+          
+          const id = 'ignore|' + interpretation.guess + '|' + message.author.username;
+          const ignore = this.db.collection('ignore');
+          ignore.findOne({id: id})
+            .then((doc, err) => {
+              if (!doc) {
+                this.invoke(interpretation.guess, message);
+              }
+            })
+            .catch(err => {
+              this.invoke(interpretation.guess, message);
+            });
         }
       }
       if (isCommand) {
-        const command = message.content.substr(1).toLocaleLowerCase();
-        console.log('Command', command);
-        fs.exists(`./imports/commands/${command}.js`, (exists) => {
+        const command = message.content.substr(1).toLocaleLowerCase().split(' ')[0];
+        fs.exists(`./imports/commands/${command}.js`, exists => {
           if (exists) {
-            require(`./imports/commands/${command}.js`)(this.client, message);
+            require(`./imports/commands/${command}.js`)(this.client, message, this.db);
             message.delete()
               .then(msg => console.log(`Deleted message from ${msg.author}`))
               .catch(console.error);
@@ -42,14 +53,14 @@ module.exports = class Bot {
         
       }
     });
-  
-    this.client.login('CLIENT_ID');
+    
+    this.client.login(this.botApiKey);
   }
   
   interpret(phrase) {
     const guesses = this.classifier.getClassifications(phrase.toLowerCase());
     const guess = guesses.reduce(this.toMaxValue);
-    console.log(guess);
+    
     return {
       probabilities: guesses,
       guess: guess.value > this.minConfidence ? guess.label : null
@@ -57,10 +68,18 @@ module.exports = class Bot {
   }
   
   invoke(skill, message) {
-    fs.readFile(this.phrasesPath, function(err, data) {
+    fs.readFile(this.phrasesPath, function (err, data) {
       const phrases = JSON.parse(data);
-      if(phrases[skill]) {
-        message.channel.send(phrases[skill]);
+      if (phrases[skill]) {
+        message.author.send(phrases[skill], {
+          embed: {
+            fields: [{
+              name: 'To ignore this message copy/paste the line below in the chat',
+              value: '!ignore ' + skill,
+              inline: true
+            }]
+          }
+        });
       } else {
         console.log('skill not found ', skill);
       }
@@ -88,7 +107,7 @@ module.exports = class Bot {
       this.savePrases(phraseObj);
       
       this.classifier.train();
-  
+      
       this.classifier.save(this.classifierPath, (err) => {
         console.log('customPhrases', err);
       });
@@ -100,8 +119,8 @@ module.exports = class Bot {
     const hash = hashes.findOne({name: "phrases"});
     const path = fs.realpathSync(this.hashPath);
     const localHash = fs.readFileSync(path, 'utf8');
-  
-    if(hash.hash !== localHash) {
+    
+    if (hash.hash !== localHash) {
       this.learn();
     }
   }
