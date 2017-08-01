@@ -12,8 +12,8 @@ This bot is specially made for the Antshares/NEO Discord server. It's purpose is
 - [x] Remove command when said
 
 ### Release 0.2
-- [ ] Respond privately
-- [ ] Add ignore feature
+- [x] Respond privately
+- [x] Add ignore feature
 
 ### Release 0.3
 - [ ] More modules
