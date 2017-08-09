@@ -21,7 +21,7 @@ module.exports = class Bot {
       
       const isQuestion = regex.test(message.content);
       const isCommand = message.content.charAt(0) === '!';
-      if (isQuestion) {
+      if (isQuestion && this.db !== false) {
         const interpretation = this.interpret(message.content);
         
         if (interpretation.guess) {

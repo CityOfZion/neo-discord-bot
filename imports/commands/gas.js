@@ -3,7 +3,7 @@ const currency = require('currency-formatter');
 
 module.exports = (client, message) => {
   request.get({
-      url: 'https://api.coinmarketcap.com/v1/ticker/Antcoin/?convert=USD',
+      url: 'https://api.coinmarketcap.com/v1/ticker/GAS/?convert=USD',
       json: true
     },
     function (e, r, prices) {
