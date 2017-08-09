@@ -5,8 +5,9 @@ This bot is specially made for the Antshares/NEO Discord server. It's purpose is
 
 ## Modules
 You can use the discord api methods listed here: https://discord.js.org/#/docs/main/stable/general/welcome
-`client` is the client is Discord client
-`message` is the message object
+
+- `client` is the client is Discord client
+- `message` is the message object
 
 To write extra modules please take a look at the `imports/commands` folder.
 ```
