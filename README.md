@@ -1,10 +1,10 @@
 # NEO Discord Bot
 
 ## Description
-This bot is specially made for the Antshares/NEO Discord server. It's purpose is to provide a multitude of functionality for new and seasoned members. It's primary function is to respond to certain text in channels and send the user a message with information.
+This bot is specially made for the NEO (previously ANS) Discord server. Its purpose is to provide a multitude of functionality for new and seasoned members. Its primary function is to respond to certain text in channels by sending the user a message with information, such as "The current GAS price is $10, B$0.00001 and rank 5". <!--did I copy that correctly? Adding to that, maybe a list of current possible commands would be at place here?-->
 
 ## Modules
-You can use the discord api methods listed here: https://discord.js.org/#/docs/main/stable/general/welcome
+You can use the discord api methods listed [here](https://discord.js.org/#/docs/main/stable/general/welcome):
 
 - `client` is the client is Discord client
 - `message` is the message object
