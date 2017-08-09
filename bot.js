@@ -12,7 +12,7 @@ module.exports = class Bot {
     this.phrasesPath = './imports/phrases.json';
     this.classifierPath = './imports/classifier.json';
     this.minConfidence = 0.9;
-    this.isCorrectHash();
+    if(db !== false) this.isCorrectHash();
   }
   
   init() {
