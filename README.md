@@ -1,4 +1,15 @@
-# NEO Discord Bot
+<p align="center">
+  <img 
+    src="http://res.cloudinary.com/vidsy/image/upload/v1503160820/CoZ_Icon_DARKBLUE_200x178px_oq0gxm.png" 
+    width="125px"
+  >
+</p>
+
+<h1 align="center">NEO Discord Bot</h1>
+
+<p align="center">
+  Discord bot made for NEO community.
+</p>
 
 ## Description
 This bot is specially made for the NEO (previously ANS) Discord server. Its purpose is to provide a multitude of functionality for new and seasoned members. Its primary function is to respond to certain text in channels by sending the user a message with information, such as "The current GAS price is $10, B$0.00001 and rank 5". <!--did I copy that correctly? Adding to that, maybe a list of current possible commands would be at place here?-->
