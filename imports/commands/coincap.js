@@ -6,6 +6,11 @@ module.exports = (client, message) => {
 
   if (data.length < 2) {
     message.channel.send(`Require command of the form "!coincap <COIN NAME>"`);
+    return;
+  }
+  
+  if(!data[0] || !data[1]) {
+    return;
   }
 
   const coin = data[1].toUpperCase();
