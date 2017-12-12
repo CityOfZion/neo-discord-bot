@@ -8,7 +8,7 @@ module.exports = (client, message) => {
     message.channel.send(`Require command of the form "!coincap <COIN NAME>"`);
     return;
   }
-  
+
   if(!data[0] || !data[1]) {
     return;
   }
@@ -21,6 +21,7 @@ module.exports = (client, message) => {
     function (e, r, data) {
       if (Object.keys(data).length === 0) {
         message.channel.send(`Unable to find the coin ${coin}`);
+        return;
       }
 
       const {
