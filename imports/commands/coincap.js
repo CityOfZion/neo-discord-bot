@@ -15,28 +15,30 @@ module.exports = (client, message) => {
 
   const coin = data[1].toUpperCase();
   request.get({
-      url: `http://coincap.io/page/${coin}`,
+      url: `https://api.coinmarketcap.com/v1/ticker/${coin}/?convert=USD`,
       json: true
     },
     function (e, r, data) {
       if (Object.keys(data).length === 0) {
         message.channel.send(`Unable to find the coin ${coin}`);
       }
+      
+      if(!data['id']) {
+        return;
+      }
 
       const {
-        btcPrice,
-        cap24hrChange,
-        display_name,
-        id,
-        market_cap,
         price_btc,
+        percent_change_24h,
+        name,
+        id,
+        market_cap_usd,
         price_usd,
-        supply,
-        volume,
+        max_supply
       } = data;
 
       // NOTE: If there is no BTC pair, then we calculate the price in satoshis
-      const priceBtc = currency.format(price_btc || (price_usd / btcPrice), { code: 'BTC', precision: 8 });
-      message.channel.send(`${display_name} (${id})\n${currency.format(price_usd, { code: 'USD' })} (${priceBtc})  +/-: ${cap24hrChange}%  Volume: ${currency.format(volume, { code: 'USD' })}\nSupply: ${currency.format(supply, {})}  Market Cap: ${currency.format(market_cap, { code: 'USD' })}`);
+      const priceBtc = currency.format(price_btc || (price_usd / price_btc), { code: 'BTC', precision: 8 });
+      message.channel.send(`${name} (${id})\n${currency.format(price_usd, { code: 'USD' })} (${price_btc})  +/-: ${percent_change_24h}%  Volume: ${currency.format(data['24h_volume_usd'], { code: 'USD' })}\nSupply: ${currency.format(max_supply, {})}  Market Cap: ${currency.format(market_cap_usd, { code: 'USD' })}`);
     });
 };
