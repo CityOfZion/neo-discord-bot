@@ -8,8 +8,9 @@ module.exports = (client, message) => {
     message.channel.send(`Require command of the form "!coincap <COIN NAME>"`);
     return;
   }
-  
+
   if(!data[0] || !data[1]) {
+    console.log('No data', data);
     return;
   }
 
@@ -21,9 +22,10 @@ module.exports = (client, message) => {
     function (e, r, data) {
       if (Object.keys(data).length === 0) {
         message.channel.send(`Unable to find the coin ${coin}`);
+        return;
       }
       
-      if(!data['id']) {
+      if(!data || !data[0] || !data[0]['id']) {
         return;
       }
 
@@ -35,10 +37,10 @@ module.exports = (client, message) => {
         market_cap_usd,
         price_usd,
         max_supply
-      } = data;
+      } = data[0];
 
       // NOTE: If there is no BTC pair, then we calculate the price in satoshis
       const priceBtc = currency.format(price_btc || (price_usd / price_btc), { code: 'BTC', precision: 8 });
-      message.channel.send(`${name} (${id})\n${currency.format(price_usd, { code: 'USD' })} (${price_btc})  +/-: ${percent_change_24h}%  Volume: ${currency.format(data['24h_volume_usd'], { code: 'USD' })}\nSupply: ${currency.format(max_supply, {})}  Market Cap: ${currency.format(market_cap_usd, { code: 'USD' })}`);
+      message.channel.send(`${name} (${id})\n${currency.format(price_usd, { code: 'USD' })} (${price_btc})  +/-: ${percent_change_24h}%  Volume: ${currency.format(data[0]['24h_volume_usd'], { code: 'USD' })}\nSupply: ${currency.format(max_supply, {})}  Market Cap: ${currency.format(market_cap_usd, { code: 'USD' })}`);
     });
 };
