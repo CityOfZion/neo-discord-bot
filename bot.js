@@ -16,7 +16,7 @@ module.exports = class Bot {
         const command = message.content.substr(1).toLocaleLowerCase().split(' ')[0];
         fs.exists(`./imports/commands/${command}.js`, exists => {
           if (exists) {
-            require(`./imports/commands/${command}.js`)(this.client, message, this.db);
+            require(`./imports/commands/${command}.js`)(this.client, message);
             message.delete()
               .then(msg => console.log(`Deleted message from ${msg.author}`))
               .catch(console.error);
@@ -29,7 +29,7 @@ module.exports = class Bot {
     this.client.login(this.botApiKey);
     
     this.client.on('ready', () => {
-      const channel = this.client.channels.get('382938031536996352');
+      const channel = this.client.channels.get('MARKET_PRICE_CHANNEL');
       const marketUpdates = require('./imports/market-price-updates')(channel);
     })
   }

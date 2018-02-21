@@ -9,6 +9,7 @@
   "author": "",
   "license": "MIT",
   "dependencies": {
+    "async-request": "^1.2.0",
     "command-line-args": "^4.0.6",
     "currency-formatter": "^1.2.1",
     "discord.js": "*",

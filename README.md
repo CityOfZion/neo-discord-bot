@@ -43,7 +43,7 @@ module.exports = (client, message) => {
 ## How to setup
  - Clone this repository
  - In the directory where it's located do `npm install`
- - Run the bot with `node index --mongoUrl "url_here" --apiKey "your_discord_api_key"` (mongoUrl is optional!)
+ - Run the bot with `node index --apiKey "your_discord_api_key"`
 
 ## Roadmap
 
