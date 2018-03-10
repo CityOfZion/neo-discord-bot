@@ -4,10 +4,17 @@ module.exports = class Bot {
   constructor(client, botApiKey) {
     this.botApiKey = botApiKey;
     this.client = client;
+
+    this.lastMessage = {};
+
+    this.retrieveLastMessage = () => {
+      return this.lastMessage;
+    }
   }
   
   init() {
     this.client.on('message', (message) => {
+      this.lastMessage = message;
       const regex = /^(how|when|is|which|what|whose|who|whom|where|why|can)(.*)|([^.!?]+\?)/igm;
       
       const isCommand = message.content.charAt(0) === '!';
@@ -30,7 +37,7 @@ module.exports = class Bot {
     
     this.client.on('ready', () => {
       const channel = this.client.channels.get('MARKET_PRICE_CHANNEL');
-      const marketUpdates = require('./imports/market-price-updates')(channel);
+      const marketUpdates = require('./imports/market-price-updates')(channel, this.retrieveLastMessage);
     })
   }
 };

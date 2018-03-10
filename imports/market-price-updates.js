@@ -1,7 +1,7 @@
 const request = require('async-request');
 const currency = require('currency-formatter');
 
-async function sendUpdate(c) {
+async function sendUpdate(c, retrieveLastMessage) {
   try {
     console.log('GET MARKET PRICE!!!');
   
@@ -32,6 +32,13 @@ async function sendUpdate(c) {
     msg += ` - B ${currency.format(btcUSDPrice.lastPrice, {code: 'USD'})}`;
   
     console.log(msg);
+
+    const lastMessage = retrieveLastMessage();
+
+    if (lastMessage.author.bot) {
+      console.log('Deleting last message, as it was a price update')
+      lastMessage.delete();
+    }
   
     c.send(msg);
   } catch(e) {
