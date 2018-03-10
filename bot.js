@@ -5,7 +5,7 @@ module.exports = class Bot {
     this.botApiKey = botApiKey;
     this.client = client;
 
-    this.lastMessage = {};
+    this.lastMessage = {author:{bot:false}};
 
     this.retrieveLastMessage = () => {
       return this.lastMessage;
