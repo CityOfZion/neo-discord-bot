@@ -34,9 +34,13 @@ async function sendUpdate(c) {
     msg += `NEO ${currency.format(neoUSDPrice.lastPrice, {code: 'USD'})} (B${neoBTCPrice.lastPrice})`;
     msg += ` - GAS ${currency.format(gasUSDPrice, {code: 'USD'})} (B${gasBTCPrice.lastPrice})`;
     msg += ` - G/N RATIO: ${gasToNeoPriceRatio}%`;
-    msg += ` - ONT ${currency.format(ontUSDPrice, {code: 'USD'})} (B${ontBTCPrice.lastPrice})`;
-    msg += ` - O/N RATIO: ${ontToNeoPriceRatio}%`;
     msg += ` - B ${currency.format(btcUSDPrice.lastPrice, {code: 'USD'})}`;
+    msg += `\n`;
+    msg += `---------\n`;
+    msg += `==TRUMP==\n`;
+    msg += `---------\n`;
+    msg += `ONT ${currency.format(ontUSDPrice, {code: 'USD'})} (B${ontBTCPrice.lastPrice})`;
+    msg += ` - O/N RATIO: ${ontToNeoPriceRatio}%`;
   
     console.log(msg);
   
