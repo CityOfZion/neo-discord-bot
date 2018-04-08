@@ -39,7 +39,7 @@ async function sendUpdate(c) {
     msg += `---------\n`;
     msg += `==TRUMP==\n`;
     msg += `---------\n`;
-    msg += ` - ONT ${currency.format(ontUSDPrice, {code: 'USD'})} (B${ontBTCPrice.lastPrice})`;
+    msg += `ONT ${currency.format(ontUSDPrice, {code: 'USD'})} (B${ontBTCPrice.lastPrice})`;
     msg += ` - O/N RATIO: ${ontToNeoPriceRatio}%`;
   
     console.log(msg);
