@@ -27,7 +27,11 @@ module.exports = (client, message) => {
                         json: true
                     },
 					function(e, r, btcprice) {
-                        message.channel.send(`NEO prices:\nBittrex = ${currency.format((btcprice.result.Last)*(bitprice.result.Last), { code: 'USD' })}, B${bitprice.result.Last}\nBinance = ${currency.format((btcprice.result.Last)*(bnbprice.lastPrice), { code: 'USD' })}, B${bnbprice.lastPrice}\nYunbi = ${currency.format((btcprice.result.Last)*(yunbiprice.ticker.last/btcyunbi.ticker.last), { code: 'USD' })}, B${(yunbiprice.ticker.last/btcyunbi.ticker.last)}`);
+                        if (yunbiprice.ticker && btcyunbi.ticker) {
+                            message.channel.send(`NEO prices:\nBittrex = ${currency.format((btcprice.result.Last)*(bitprice.result.Last), { code: 'USD' })}, B${bitprice.result.Last}\nBinance = ${currency.format((btcprice.result.Last)*(bnbprice.lastPrice), { code: 'USD' })}, B${bnbprice.lastPrice}\nYunbi = ${currency.format((btcprice.result.Last)*(yunbiprice.ticker.last/btcyunbi.ticker.last), { code: 'USD' })}, B${(yunbiprice.ticker.last/btcyunbi.ticker.last)}`);
+                        } else {
+                            message.channel.send(`NEO prices:\nBittrex = ${currency.format((btcprice.result.Last)*(bitprice.result.Last), { code: 'USD' })}, B${bitprice.result.Last}\nBinance = ${currency.format((btcprice.result.Last)*(bnbprice.lastPrice), { code: 'USD' })}, B${bnbprice.lastPrice}`);
+                        }
                     })
 				})
 			})
