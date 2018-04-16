@@ -42,9 +42,9 @@ module.exports = (client, message) => {
 
 ## How to setup
  - Clone this repository
- - In the directory where it's located do `npm install`
- - Change the value in index.js [BOT_API_KEY], bot.js[MARKET_PRICE_CHANNEL] and report.js[REPORT_CHANNEL] to your own values
- - Run the bot with `node index --apiKey "your_discord_api_key"`
+ - In the directory where it's located do `yarn install`
+ - Change the values in settings.js to your own values
+ - Run the bot with `yarn start` (if you don't want to use pm2, you can use `node index.js`)
 
 ## Roadmap
 
