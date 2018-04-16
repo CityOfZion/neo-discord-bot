@@ -9,12 +9,12 @@
   "author": "",
   "license": "MIT",
   "dependencies": {
-    "async-request": "^1.2.0",
-    "command-line-args": "^4.0.6",
-    "currency-formatter": "^1.2.1",
-    "discord.js": "*",
+    "async-request": "1.2.0",
+    "command-line-args": "5.0.2",
+    "currency-formatter": "1.4.2",
+    "discord.js": "11.3.2",
     "fs": "0.0.1-security",
     "http": "0.0.0",
-    "request": "^2.81.0"
+    "request": "2.85.0"
   }
 }
