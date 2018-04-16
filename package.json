@@ -6,7 +6,7 @@
   "scripts": {
     "start": "./node_modules/.bin/pm2 start index.js --name neo-discord-bot --restart-delay 30000",
     "stop": "./node_modules/.bin/pm2 delete neo-discord-bot",
-    "logs": "./node_modules/.bin/pm2 logs",
+    "logs": "./node_modules/.bin/pm2 logs neo-discord-bot",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "author": "",
