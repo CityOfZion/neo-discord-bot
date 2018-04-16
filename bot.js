@@ -1,3 +1,4 @@
+const settings = require('./settings');
 const fs = require('fs');
 
 module.exports = class Bot {
@@ -29,7 +30,7 @@ module.exports = class Bot {
     this.client.login(this.botApiKey);
     
     this.client.on('ready', () => {
-      const channel = this.client.channels.get('MARKET_PRICE_CHANNEL');
+      const channel = this.client.channels.get(settings.marketPriceChannel);
       const marketUpdates = require('./imports/market-price-updates')(channel);
     })
   }
