@@ -44,7 +44,7 @@ module.exports = (client, message) => {
  - Clone this repository
  - In the directory where it's located do `yarn install`
  - Change the values in settings.js to your own values
- - Run the bot with `yarn start` (if you don't want to use pm2, you can use `node index.js`)
+ - Run the bot with `yarn start` (if you don't want to use pm2, you can use `node --harmony index.js`)
 
 ## Roadmap
 
