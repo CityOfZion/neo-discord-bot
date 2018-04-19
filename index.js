@@ -15,7 +15,6 @@ const startBot = function() {
     .on('error', console.error)
     .on('warn', console.warn)
     .on('message', message => {
-      const regex = /^(how|when|is|which|what|whose|who|whom|where|why|can)(.*)|([^.!?]+\?)/igm;
       
       const isCommand = message.content.charAt(0) === '!';
      
