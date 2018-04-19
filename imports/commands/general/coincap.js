@@ -1,6 +1,4 @@
 const { Command } = require('discord.js-commando');
-const stripIndents = require('common-tags').stripIndents;
-const settings = require('../../../settings');
 const request = require('request');
 const currency = require('currency-formatter');
 
