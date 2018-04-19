@@ -1,8 +1,21 @@
+const { Command } = require('discord.js-commando');
 const request = require('request');
 const currency = require('currency-formatter');
 
-module.exports = (client, message) => {
-  request.get({
+module.exports = class PricesCommand extends Command {
+  constructor(client) {
+      super(client, {
+          name: 'prices',
+          group: 'neo-related',
+          memberName: 'prices',
+          description: 'Shows more details for NEO using Binance, Bittrex and Yunbi.',
+          examples: ['!prices'],
+          guildOnly: false,
+      });
+  }
+
+  async run(message) {
+    request.get({
   	  url: 'https://www.binance.com/api/v1/ticker/24hr?symbol=NEOBTC',
       json: true 
     },
@@ -37,4 +50,5 @@ module.exports = (client, message) => {
 			})
     	})
     });
-}
+  }
+};
