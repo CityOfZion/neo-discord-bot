@@ -56,14 +56,14 @@ module.exports = class ReportCommand extends Command {
 
   async run(message) {
     try {
-      const settings = require('../../settings');
+      const settings = require('../../../settings');
       const fs = require('fs');
       
       const reportsNeeded = {kick: 3, ban3days: 4, ban: 5};
       
       const [command, user, ...reason] = message.content.split(' ').filter((str) => str);
       const targetUser = message.mentions.members.first();
-      const reportChannel = client.channels.get(settings.reportChannel);
+      const reportChannel = this.client.channels.get(settings.reportChannel);
       const fileName = `./userdata/${targetUser.id}.json`;
       
       
