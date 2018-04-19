@@ -8,7 +8,7 @@ module.exports = class CoincapCommand extends Command {
           name: 'coincap',
           group: 'general',
           memberName: 'coincap',
-          description: 'Shows more details for provided coin.',
+          description: 'Shows more details for provided coin using CoinMarketCap.',
           examples: ['!coincap <COIN NAME>'],
           guildOnly: false,
       });
