@@ -3,6 +3,7 @@ const sqlite = require('sqlite');
 const path = require('path');
 const fs = require('fs');
 const settings = require('./settings');
+const helpers = require('./helpers');
 const client = new CommandoClient({autoReconnect: settings.autoReconnect, owner: settings.ownersId, commandPrefix: settings.commandPrefix, unknownCommandResponse: settings.unknownCommandResponse, disableEveryone: settings.disableEveryone});
 
 const startBot = function() {
@@ -15,21 +16,16 @@ const startBot = function() {
     .on('error', console.error)
     .on('warn', console.warn)
     .on('message', message => {
-      
-      const isCommand = message.content.charAt(0) === '!';
-     
+      const isCommand = message.content.startsWith(settings.botPrefix);
+
       if (isCommand) {
-        const command = message.content.substr(1).toLocaleLowerCase().split(' ')[0];
-        fs.exists(`./imports/commands/${command}.js`, exists => {
-          if (exists) {
-            require(`./imports/commands/${command}.js`)(this.client, message);
-            message.delete()
-              .then(msg => console.log(`Deleted message from ${msg.author}`))
-              .catch(console.error);
+        const allCommands = client.registry.commands;
+        allCommands.forEach(cmd => {
+          if (message.content.includes(cmd.name)) {
+            helpers.deleteMsg(message);
           }
         });
-        
-      }
+      };
     })
     .on('disconnect', () => console.warn('Disconnected'))
     .on('reconnect', () => console.warn('Reconnected'))
