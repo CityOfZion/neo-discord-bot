@@ -2,7 +2,7 @@ const { Command } = require('discord.js-commando');
 const request = require('request');
 const currency = require('currency-formatter');
 
-module.exports = class NeoCommand extends Command {
+module.exports = class GasCommand extends Command {
   constructor(client) {
       super(client, {
           name: 'gas',
