@@ -4,7 +4,7 @@ const path = require('path');
 const fs = require('fs');
 const settings = require('./settings');
 const helpers = require('./helpers');
-const client = new CommandoClient({autoReconnect: settings.autoReconnect, owner: settings.ownersId, commandPrefix: settings.commandPrefix, unknownCommandResponse: settings.unknownCommandResponse, disableEveryone: settings.disableEveryone});
+const client = new CommandoClient({autoReconnect: settings.autoReconnect, owner: settings.ownersId, commandPrefix: settings.botPrefix, unknownCommandResponse: settings.unknownCommandResponse, disableEveryone: settings.disableEveryone});
 
 const startBot = function() {
   client
