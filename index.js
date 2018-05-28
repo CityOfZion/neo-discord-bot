@@ -1,9 +1,9 @@
 const { CommandoClient, SQLiteProvider } = require('discord.js-commando');
 const sqlite = require('sqlite');
 const path = require('path');
-const fs = require('fs');
 const settings = require('./settings');
 const helpers = require('./helpers');
+const marketUpdates = require('./imports/market-price-updates');
 const client = new CommandoClient({
   autoReconnect: settings.autoReconnect,
   owner: settings.ownersId,
@@ -21,7 +21,7 @@ const startBot = function() {
         })`
       );
       const channel = client.channels.get(settings.marketPriceChannel);
-      const marketUpdates = require('./imports/market-price-updates')(channel);
+      marketUpdates(channel);
     })
     .on('error', console.error)
     .on('warn', console.warn)
