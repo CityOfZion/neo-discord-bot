@@ -7,6 +7,7 @@
     "start": "./node_modules/.bin/pm2 start index.js --node-args '--harmony' --name neo-discord-bot --restart-delay 30000",
     "stop": "./node_modules/.bin/pm2 delete neo-discord-bot",
     "logs": "./node_modules/.bin/pm2 logs neo-discord-bot",
+    "lint": "eslint .",
     "eslint-check": "eslint --print-config .eslintrc.json | eslint-config-prettier-check"
   },
   "engines": {
