@@ -43,29 +43,22 @@ module.exports = class CoincapCommand extends Command {
           return;
         }
 
-        const {
-          price_btc,
-          percent_change_24h,
-          name,
-          id,
-          market_cap_usd,
-          price_usd,
-          max_supply
-        } = data[0];
+        const priceBtc = data[0].price_btc;
+        const percentChange24h = data[0].percent_change_24h;
+        const name = data[0].name;
+        const id = data[0].id;
+        const marketCapUsd = data[0].market_cap_usd;
+        const priceUsd = data[0].price_usd;
+        const maxSupply = data[0].max_supply;
 
-        // NOTE: If there is no BTC pair, then we calculate the price in satoshis
-        const priceBtc = currency.format(price_btc || price_usd / price_btc, {
-          code: 'BTC',
-          precision: 8
-        });
         message.channel.send(
-          `${name} (${id})\n${currency.format(price_usd, {
+          `${name} (${id})\n${currency.format(priceUsd, {
             code: 'USD'
-          })} (${price_btc})  +/-: ${percent_change_24h}%  Volume: ${currency.format(
+          })} (${priceBtc})  +/-: ${percentChange24h}%  Volume: ${currency.format(
             data[0]['24h_volume_usd'],
             { code: 'USD' }
-          )}\nSupply: ${currency.format(max_supply, {})}  Market Cap: ${currency.format(
-            market_cap_usd,
+          )}\nSupply: ${currency.format(maxSupply, {})}  Market Cap: ${currency.format(
+            marketCapUsd,
             { code: 'USD' }
           )}`
         );
