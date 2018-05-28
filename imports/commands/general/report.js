@@ -70,6 +70,7 @@ module.exports = class ReportCommand extends Command {
 
       const reportsNeeded = { kick: 3, ban3days: 4, ban: 5 };
 
+      /* eslint-disable-next-line no-unused-vars */
       const [command, user, ...reason] = message.content.split(' ').filter(str => str);
       const targetUser = message.mentions.members.first();
       const reportChannel = this.client.channels.get(settings.reportChannel);
