@@ -18,7 +18,7 @@
     "currency-formatter": "1.4.2",
     "discord.js": "11.3.2",
     "discord.js-commando": "0.10.0",
-    "pm2": "2.10.2",
+    "pm2": "2.10.4",
     "request": "2.85.0",
     "sqlite": "2.9.1"
   },
