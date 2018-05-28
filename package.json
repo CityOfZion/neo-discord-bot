@@ -20,7 +20,7 @@
     "discord.js-commando": "0.10.0",
     "pm2": "2.10.4",
     "request": "2.87.0",
-    "sqlite": "2.9.1"
+    "sqlite": "2.9.2"
   },
   "optionalDependencies": {
     "bufferutil": "3.0.5",
