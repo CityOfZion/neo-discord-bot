@@ -1,0 +1,21 @@
+{
+    "extends": [
+        "standard",
+        "prettier",
+        "prettier/standard"
+    ],
+    "plugins": [
+        "prettier",
+        "standard"
+    ],
+    "parserOptions": {
+        "ecmaVersion": 2017
+    },
+    "env": {
+        "es6": true,
+        "node": true
+    },
+    "rules": {
+        "prettier/prettier": "error"
+    }
+}
