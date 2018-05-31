@@ -16,7 +16,7 @@
   "author": "",
   "license": "MIT",
   "dependencies": {
-    "async-request": "1.2.0",
+    "axios": "0.18.0",
     "command-line-args": "5.0.2",
     "common-tags": "1.8.0",
     "currency-formatter": "1.4.2",
