@@ -10,10 +10,10 @@ async function sendUpdate(c) {
     const gasBTCPriceRaw = await axios('https://binance.com/api/v1/ticker/24hr?symbol=GASBTC');
     const btcUSDPriceRaw = await axios('https://binance.com/api/v1/ticker/24hr?symbol=BTCUSDT');
 
-    const neoUSDPrice = JSON.parse(neoUSDPriceRaw.body);
-    const neoBTCPrice = JSON.parse(neoBTCPriceRaw.body);
-    const gasBTCPrice = JSON.parse(gasBTCPriceRaw.body);
-    const btcUSDPrice = JSON.parse(btcUSDPriceRaw.body);
+    const neoUSDPrice = neoUSDPriceRaw.data;
+    const neoBTCPrice = neoBTCPriceRaw.data;
+    const gasBTCPrice = gasBTCPriceRaw.data;
+    const btcUSDPrice = btcUSDPriceRaw.data;
 
     const gasUSDPrice = parseFloat(gasBTCPrice.lastPrice) * parseFloat(btcUSDPrice.lastPrice);
     const gasToNeoPriceRatio = ((gasUSDPrice / neoUSDPrice.lastPrice) * 100).toFixed(2);
