@@ -1,24 +1,18 @@
-const request = require('async-request');
+const axios = require('axios');
 const currency = require('currency-formatter');
 
 async function sendUpdate(c) {
   try {
     console.log('GET MARKET PRICE!!!');
 
-    const neoUSDPriceRaw = await request('https://binance.com/api/v1/ticker/24hr?symbol=NEOUSDT');
-
-    const neoBTCPriceRaw = await request('https://binance.com/api/v1/ticker/24hr?symbol=NEOBTC');
-
-    const gasBTCPriceRaw = await request('https://binance.com/api/v1/ticker/24hr?symbol=GASBTC');
-
-    const btcUSDPriceRaw = await request('https://binance.com/api/v1/ticker/24hr?symbol=BTCUSDT');
+    const neoUSDPriceRaw = await axios('https://binance.com/api/v1/ticker/24hr?symbol=NEOUSDT');
+    const neoBTCPriceRaw = await axios('https://binance.com/api/v1/ticker/24hr?symbol=NEOBTC');
+    const gasBTCPriceRaw = await axios('https://binance.com/api/v1/ticker/24hr?symbol=GASBTC');
+    const btcUSDPriceRaw = await axios('https://binance.com/api/v1/ticker/24hr?symbol=BTCUSDT');
 
     const neoUSDPrice = JSON.parse(neoUSDPriceRaw.body);
-
     const neoBTCPrice = JSON.parse(neoBTCPriceRaw.body);
-
     const gasBTCPrice = JSON.parse(gasBTCPriceRaw.body);
-
     const btcUSDPrice = JSON.parse(btcUSDPriceRaw.body);
 
     const gasUSDPrice = parseFloat(gasBTCPrice.lastPrice) * parseFloat(btcUSDPrice.lastPrice);
