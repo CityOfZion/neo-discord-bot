@@ -1,38 +1,48 @@
 const { CommandoClient, SQLiteProvider } = require('discord.js-commando');
 const sqlite = require('sqlite');
 const path = require('path');
-const settings = require('./settings');
+const {
+  botToken,
+  autoReconnect,
+  ownersId,
+  botPrefix,
+  unknownCommandResponse,
+  disableEveryone,
+  marketPriceCommand
+} = require('./settings');
 const helpers = require('./helpers');
 const marketUpdates = require('./imports/market-price-updates');
 const client = new CommandoClient({
-  autoReconnect: settings.autoReconnect,
-  owner: settings.ownersId,
-  commandPrefix: settings.botPrefix,
-  unknownCommandResponse: settings.unknownCommandResponse,
-  disableEveryone: settings.disableEveryone
+  autoReconnect: autoReconnect,
+  owner: ownersId,
+  commandPrefix: botPrefix,
+  unknownCommandResponse: unknownCommandResponse,
+  disableEveryone: disableEveryone
 });
 
-const startBot = function() {
+const startBot = () => {
   client
-    .on('ready', () => {
+    .on('ready', async () => {
       console.log(
         `Client ready; logged in as ${client.user.username}#${client.user.discriminator} (${
           client.user.id
         })`
       );
-      const channel = client.channels.get(settings.marketPriceChannel);
-      marketUpdates(channel);
+
+      const priceChannel = client.channels.get(marketPriceCommand.marketPriceChannel);
+
+      await marketUpdates(priceChannel);
     })
     .on('error', console.error)
     .on('warn', console.warn)
     .on('message', message => {
-      const isCommand = message.content.startsWith(settings.botPrefix);
+      const isCommand = message.content.startsWith(botPrefix);
 
       if (isCommand) {
         const allCommands = client.registry.commands;
-        allCommands.forEach(cmd => {
+        allCommands.forEach(async cmd => {
           if (message.content.includes(cmd.name)) {
-            helpers.deleteMsg(message);
+            await helpers.deleteMsg(message);
           }
         });
       }
@@ -62,7 +72,7 @@ const startBot = function() {
     .setProvider(sqlite.open(path.join(__dirname, 'db.sqlite3')).then(db => new SQLiteProvider(db)))
     .catch(console.error);
 
-  client.login(settings.botToken);
+  client.login(botToken);
 };
 
 startBot();
