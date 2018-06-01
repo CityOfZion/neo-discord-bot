@@ -1,3 +1,5 @@
+let priceChannelMessageCount = 0;
+
 module.exports = {
   deleteMsg: async message => {
     if (message.channel.type !== 'dm') {
@@ -8,5 +10,14 @@ module.exports = {
         console.error(err);
       }
     }
+  },
+  getPriceChannelMsgCount: () => {
+    return priceChannelMessageCount;
+  },
+  incrementPriceChannelMsgCount: () => {
+    priceChannelMessageCount++;
+  },
+  resetPriceChannelMsgCount: () => {
+    priceChannelMessageCount = 0;
   }
 };
