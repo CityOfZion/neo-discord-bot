@@ -43,7 +43,7 @@ const startBot = () => {
       if (isCommand) {
         const allCommands = client.registry.commands;
         allCommands.forEach(async cmd => {
-          if (message.content.includes(cmd.name)) {
+          if (message.content.startsWith(botPrefix + cmd.name)) {
             await deleteMsg(message);
           }
         });
