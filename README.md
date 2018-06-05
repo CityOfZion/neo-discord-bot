@@ -60,13 +60,19 @@ module.exports = class NeoCommand extends Command {
 
 ## Settings explanation
  - `botToken` - Sets token of Discord bot.
- - `marketPriceChannel` - Market price details are posted on this channel.
  - `reportChannel` - Report details are posted on this channel after reporting a user.
  - `ownersId` - Specifies which users has admin rights for bot - [command list for admins](https://github.com/discordjs/Commando/blob/master/docs/commands/builtins.md), [more details about user permissions](https://dragonfire535.gitbooks.io/discord-js-commando-beginners-guide/content/checking-for-user-permissions.html).
  - `botPrefix` - Sets custom prefix for all commands.
  - `autoReconnect` - Automatically reconnects the bot in case of connection issues.
  - `unknownCommandResponse` - If bot doesn't recognize specified command, it will send a message about it (with reference to `help` command).
  - `disableEveryone` - Filters out all messages sent by bot and always removes `@everyone` mention.
+ - `coinDictUrl` - Url used to fetch coin dictionary.
+ - `coinDictUpdateInterval` - Interval which defines how often dictionary should be updated.
+ - `marketPriceCommand` - Contains settings related to market price command.
+   - `marketPriceChannel` - Market price details are posted on this channel.
+   - `updateInterval` - How often should market price be updated.
+   - `smartPriceMessagesThreshold` - Previous posted message will be updated (instead of posting new one) if threshold is not reached.
+   - `uniqueStringOfCommand` - Unique string which is present only in market price command.
 
 ## Roadmap
 
