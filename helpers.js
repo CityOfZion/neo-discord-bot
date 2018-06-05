@@ -29,8 +29,8 @@ const helpers = {
       const listings = await axios(coinDictUrl);
       const coins = listings.data.data.map(coin => {
         /* eslint-disable-next-line camelcase */
-        const { id, symbol, name } = coin;
-        return { id, symbol, name };
+        const { id, symbol, name, website_slug } = coin;
+        return { id, symbol, name, website_slug };
       });
       helpers.setCoinDict(coins);
     } catch (err) {
@@ -59,6 +59,37 @@ const helpers = {
     setInterval(async () => {
       await helpers.fetchCoinDict();
     }, coinDictUpdateInterval);
+  },
+  getCoin: userInput => {
+    if (!coinDictionary) {
+      return null;
+    }
+
+    const usersCoinInput = userInput.toLowerCase();
+    const coin =
+      coinDictionary.find(isSymbol) ||
+      coinDictionary.find(isName) ||
+      coinDictionary.find(isSlug) ||
+      coinDictionary.find(isId);
+
+    if (coin) {
+      return coin;
+    } else {
+      return null;
+    }
+
+    function isSymbol(obj) {
+      return obj.symbol.toLowerCase() === usersCoinInput;
+    }
+    function isName(obj) {
+      return obj.name.toLowerCase() === usersCoinInput;
+    }
+    function isSlug(obj) {
+      return obj.website_slug === usersCoinInput;
+    }
+    function isId(obj) {
+      return obj.id === usersCoinInput;
+    }
   }
 };
 
