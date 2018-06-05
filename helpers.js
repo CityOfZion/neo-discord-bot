@@ -67,10 +67,7 @@ const helpers = {
 
     const usersCoinInput = userInput.toLowerCase();
     const coin =
-      coinDictionary.find(isSymbol) ||
-      coinDictionary.find(isName) ||
-      coinDictionary.find(isSlug) ||
-      coinDictionary.find(isId);
+      coinDictionary.find(isSymbol) || coinDictionary.find(isName) || coinDictionary.find(isSlug);
 
     if (coin) {
       return coin;
@@ -86,9 +83,6 @@ const helpers = {
     }
     function isSlug(obj) {
       return obj.website_slug === usersCoinInput;
-    }
-    function isId(obj) {
-      return obj.id === usersCoinInput;
     }
   }
 };
