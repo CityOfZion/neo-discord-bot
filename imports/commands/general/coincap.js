@@ -1,6 +1,7 @@
 const { Command } = require('discord.js-commando');
 const request = require('request');
 const currency = require('currency-formatter');
+const { getCoin } = require.main.require('./helpers');
 
 module.exports = class CoincapCommand extends Command {
   constructor(client) {
@@ -15,27 +16,28 @@ module.exports = class CoincapCommand extends Command {
   }
 
   async run(message) {
-    const data = message.content.split(' ').filter(str => str);
+    const usersCoinInput = message.content.split(' ')[1];
 
-    if (data.length < 2) {
+    if (!usersCoinInput) {
       message.channel.send(`Require command of the form "!coincap <COIN NAME>"`);
       return;
     }
 
-    if (!data[0] || !data[1]) {
-      console.log('No data', data);
+    const requestedCoin = getCoin(usersCoinInput);
+
+    if (!requestedCoin) {
+      message.channel.send('Unable to find provided coin');
       return;
     }
 
-    const coin = data[1].toUpperCase();
     request.get(
       {
-        url: `https://api.coinmarketcap.com/v1/ticker/${coin}/?convert=USD`,
+        url: `https://api.coinmarketcap.com/v1/ticker/${requestedCoin.website_slug}/?convert=USD`,
         json: true
       },
       function(e, r, data) {
         if (Object.keys(data).length === 0) {
-          message.channel.send(`Unable to find the coin ${coin}`);
+          message.channel.send('Unable to find provided coin');
           return;
         }
 
