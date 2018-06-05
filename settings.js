@@ -6,6 +6,8 @@ module.exports = {
   autoReconnect: true,
   unknownCommandResponse: false, // if unknown command was triggered, let user know about it
   disableEveryone: true, // bot will never trigger @everyone
+  coinDictUrl: 'https://api.coinmarketcap.com/v2/listings/', // url used to fetch dictionary from
+  coinDictUpdateInterval: 10800000, // update each 3 hours
 
   marketPriceCommand: {
     marketPriceChannel: '<PUT_CHANNEL_ID_HERE>',
