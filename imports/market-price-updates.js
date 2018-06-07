@@ -51,7 +51,7 @@ async function sendUpdate(c) {
     msgToSend += ` - G/N RATIO: ${gasToNeoPriceRatio}%`;
     msgToSend += ` - B ${currency.format(btcUSDPrice.lastPrice, { code: 'USD' })}`;
 
-    if (getPriceChannelMsgCount() > marketPriceCommand.smartPriceMessagesThreshold) {
+    if (getPriceChannelMsgCount() >= marketPriceCommand.smartPriceMessagesThreshold) {
       const sentMessage = await c.send(msgToSend);
       console.log(`Market price sent with new message: ${sentMessage.content}`);
       resetPriceChannelMsgCount();
