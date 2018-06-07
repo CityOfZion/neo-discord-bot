@@ -9,15 +9,19 @@ const {
 
 async function sendUpdate(c) {
   try {
+
     const lastPriceChannelMsgs = await c.fetchMessages({
       limit: marketPriceCommand.smartPriceMessagesThreshold
     });
+
+    let lastBotMessage = false;
 
     await lastPriceChannelMsgs.every(msg => {
       if (!msg.content.includes(marketPriceCommand.uniqueStringOfCommand)) {
         incrementPriceChannelMsgCount();
         return true;
       } else {
+        if(lastBotMessage === false) lastBotMessage = msg;
         return false;
       }
     });
@@ -47,24 +51,14 @@ async function sendUpdate(c) {
     msgToSend += ` - G/N RATIO: ${gasToNeoPriceRatio}%`;
     msgToSend += ` - B ${currency.format(btcUSDPrice.lastPrice, { code: 'USD' })}`;
 
-    if (getPriceChannelMsgCount() >= marketPriceCommand.smartPriceMessagesThreshold) {
+    if (getPriceChannelMsgCount() > marketPriceCommand.smartPriceMessagesThreshold) {
       const sentMessage = await c.send(msgToSend);
       console.log(`Market price sent with new message: ${sentMessage.content}`);
       resetPriceChannelMsgCount();
     } else {
-      const lastMsgs = await c.fetchMessages({
-        limit: marketPriceCommand.smartPriceMessagesThreshold
-      });
-      await lastMsgs.every(async msg => {
-        if (msg.author.bot && msg.content.includes(marketPriceCommand.uniqueStringOfCommand)) {
-          const editedMsg = await msg.edit(msgToSend);
-          console.log(`Market price updated in previous message: ${editedMsg.content}`);
-          resetPriceChannelMsgCount();
-          return false;
-        } else {
-          return true;
-        }
-      });
+        const editedMsg = await lastBotMessage.edit(msgToSend);
+        console.log(`Market price updated in previous message: ${editedMsg.content}`);
+        resetPriceChannelMsgCount();
     }
   } catch (e) {
     console.log('ERROR', e.message);
