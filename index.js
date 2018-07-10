@@ -10,7 +10,7 @@ const {
   disableEveryone,
   marketPriceCommand
 } = require('./settings');
-const helpers = require('./helpers');
+const { deleteMsg, fetchCoinDict } = require('./helpers');
 const marketUpdates = require('./imports/market-price-updates');
 const client = new CommandoClient({
   autoReconnect: autoReconnect,
@@ -29,6 +29,8 @@ const startBot = () => {
         })`
       );
 
+      await fetchCoinDict();
+
       const priceChannel = client.channels.get(marketPriceCommand.marketPriceChannel);
 
       await marketUpdates(priceChannel);
@@ -41,8 +43,8 @@ const startBot = () => {
       if (isCommand) {
         const allCommands = client.registry.commands;
         allCommands.forEach(async cmd => {
-          if (message.content.includes(cmd.name)) {
-            await helpers.deleteMsg(message);
+          if (message.content.startsWith(botPrefix + cmd.name)) {
+            await deleteMsg(message);
           }
         });
       }
