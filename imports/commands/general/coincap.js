@@ -26,7 +26,7 @@ module.exports = class CoincapCommand extends Command {
     const requestedCoin = getCoin(usersCoinInput);
 
     if (!requestedCoin) {
-      message.channel.send('Unable to find provided coin');
+      // message.channel.send('Unable to find provided coin');
       return;
     }
 
@@ -36,7 +36,7 @@ module.exports = class CoincapCommand extends Command {
       );
 
       if (!coinTicker || !coinTicker.data[0]) {
-        message.channel.send('Unable to find provided coin');
+        // message.channel.send('Unable to find provided coin');
         return;
       }
 
