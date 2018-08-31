@@ -12,6 +12,8 @@ const startBot = function() {
       console.log(`Client ready; logged in as ${client.user.username}#${client.user.discriminator} (${client.user.id})`);
       const channel = client.channels.get(settings.marketPriceChannel);
       const marketUpdates = require('./imports/market-price-updates')(channel);
+      const supportChannel = client.channels.get(settings.supportChannel);
+      const marketUpdates = require('./imports/neo-services-monitor')(supportChannel);
     })
     .on('error', console.error)
     .on('warn', console.warn)
