@@ -12,6 +12,7 @@ const {
 } = require('./settings');
 const { deleteMsg, fetchCoinDict } = require('./helpers');
 const marketUpdates = require('./imports/market-price-updates');
+const supportUpdates = require('./imports/neo-services-updates');
 const client = new CommandoClient({
   autoReconnect: autoReconnect,
   owner: ownersId,
@@ -32,8 +33,10 @@ const startBot = () => {
       await fetchCoinDict();
 
       const priceChannel = client.channels.get(marketPriceCommand.marketPriceChannel);
+      const supportChannel = client.channels.get(supportChannel);
 
       await marketUpdates(priceChannel);
+      await supportUpdates(supportChannel);
     })
     .on('error', console.error)
     .on('warn', console.warn)
