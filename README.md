@@ -1,6 +1,6 @@
 <p align="center">
-  <img 
-    src="http://res.cloudinary.com/vidsy/image/upload/v1503160820/CoZ_Icon_DARKBLUE_200x178px_oq0gxm.png" 
+  <img
+    src="http://res.cloudinary.com/vidsy/image/upload/v1503160820/CoZ_Icon_DARKBLUE_200x178px_oq0gxm.png"
     width="125px"
   >
 </p>
@@ -61,6 +61,7 @@ module.exports = class NeoCommand extends Command {
 ## Settings explanation
  - `botToken` - Sets token of Discord bot.
  - `reportChannel` - Report details are posted on this channel after reporting a user.
+ - `supportChannel` - Periodic Neo service status updates are sent to this channel.
  - `ownersId` - Specifies which users has admin rights for bot - [command list for admins](https://github.com/discordjs/Commando/blob/master/docs/commands/builtins.md), [more details about user permissions](https://dragonfire535.gitbooks.io/discord-js-commando-beginners-guide/content/checking-for-user-permissions.html).
  - `botPrefix` - Sets custom prefix for all commands.
  - `autoReconnect` - Automatically reconnects the bot in case of connection issues.
